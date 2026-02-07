@@ -85,5 +85,5 @@ output:
 ## Run
 
 ```bash
-python main.py
+python run_feed.py
 ```
