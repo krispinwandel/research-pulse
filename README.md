@@ -32,8 +32,6 @@ It fetches the latest computer vision and robotics papers, filters them semantic
 2.  **Install dependencies:**
     ```bash
     uv sync
-    # OR
-    pip install -r requirements.txt
     ```
 
 3.  **Configure:**
