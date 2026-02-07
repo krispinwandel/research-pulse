@@ -25,7 +25,7 @@ It fetches the latest computer vision and robotics papers, filters them semantic
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/krispinwandel/research-pulse.git](https://github.com/krispinwandel/research-pulse.git)
+    git clone https://github.com/krispinwandel/research-pulse.git
     cd research-pulse
     ```
 
