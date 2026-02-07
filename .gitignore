@@ -4,3 +4,5 @@
 research_reports
 
 __pycache__
+
+.DS_Store

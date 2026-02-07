@@ -9,27 +9,25 @@ TEMPLATE = """
 **Summary:** Found **{{ count }}** papers matching your interests.
 
 ---
-
 {% for paper in papers %}
 ### [{{ paper.title }}]({{ paper.url }})
 **{{ paper.authors_full }}** | {{ paper.published }}
 
 > **🤖 AI TL;DR:** {{ paper.ai_summary }}
 
-{% if paper.project_url %}
 <details>
-<summary><strong>🌐 Show Project Demo</strong></summary>
-<br>
-<div style="width: 100%; height: 400px; overflow: hidden; border: 1px solid #ddd; border-radius: 4px;">
+<summary><strong>🌐 {% if paper.project_url %}Show Project Demo{% else %}No Project Demo Available{% endif %}</strong></summary>
+{% if paper.project_url %}
+<p style="width: 100%; height: 400px; overflow: hidden; border: 1px solid #ddd; border-radius: 4px;">
     <iframe src="{{ paper.project_url }}" style="width: 100%; height: 100%; border: none;"></iframe>
-</div>
+</p>
 <p><em><a href="{{ paper.project_url }}">Open Project Page ↗</a></em></p>
-</details>
+{% else %}
+<p><em>No project demo available.</em></p>
 {% endif %}
-
+</details>
 <details>
 <summary><strong>📄 Show PDF Preview</strong></summary>
-<br>
 {% if paper.pdf_preview %}
 <a href="{{ paper.local_pdf }}">
     <img src="{{ paper.pdf_preview }}" 
@@ -42,19 +40,20 @@ TEMPLATE = """
 <p><em>No preview available. <a href="{{ paper.local_pdf }}">Open PDF</a></em></p>
 {% endif %}
 </details>
-
 <details>
 <summary><strong>📝 Show Text Abstract</strong></summary>
-<br>
 {{ paper.abstract }}
 </details>
-
-{% if paper.tweets %}
-**🐦 Community Signal**
+<details {% if paper.tweets %}open{% endif %}>
+<summary><strong>🐦 {% if paper.tweets %}Community Signal{% else %}No Community Signal{% endif %}</strong></summary>
+{% if paper.tweets %}<ul>{% else %}<p><em>No tweets found for this paper.</em></p>{% endif %}
 {% for tweet in paper.tweets %}
-* **[@{{ tweet.author_handle }}]({{ tweet.url }})** (♥ {{ tweet.likes }}): {{ tweet.text | replace('\n', ' ') }}
+<li>
+<a href="{{ tweet.url }}">@{{ tweet.author_handle }}</a> (♥ {{ tweet.likes }}): {{ tweet.text | replace('\n', ' ') }}
+</li>
 {% endfor %}
-{% endif %}
+{% if paper.tweets %}</ul>{% endif %}
+</details>
 
 ---
 {% endfor %}
