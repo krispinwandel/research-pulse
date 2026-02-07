@@ -2,3 +2,5 @@
 .venv
 *.lock
 research_reports
+
+__pycache__

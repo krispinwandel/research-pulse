@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "ainewsfeed"
 version = "0.1.1"
 description = "Personal AI Research News Feed"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 dependencies = [
     "arxiv>=2.1.0",
     "google-genai>=0.3.0",  # CHANGED: New SDK
