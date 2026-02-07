@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ainewsfeed"
+version = "0.1.1"
+description = "Personal AI Research News Feed"
+requires-python = ">=3.9"
+dependencies = [
+    "arxiv>=2.1.0",
+    "google-genai>=0.3.0",  # CHANGED: New SDK
+    "jinja2>=3.1.0",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "jupyter>=1.0.0",
+    "ipykernel>=6.0.0",
+    "pymupdf>=1.23.0",  # For PDF -> Image conversion
+    "tqdm>=4.0.0",  # For progress bars
+    "beautifulsoup4>=4.12.0",  # For scraping affiliations
+    "pymupdf>=1.23.0",        # For extracting figures from PDF
+    "Pillow>=10.0.0"          # For saving images
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["ainewsfeed"]

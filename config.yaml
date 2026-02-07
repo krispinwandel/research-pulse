@@ -1,0 +1,39 @@
+# API Keys
+keys:
+  gemini: "YOUR_GEMINI_API_KEY"
+  x_bearer: "YOUR_X_BEARER_TOKEN"
+
+# Research Configuration
+research:
+  require_project_link: True
+  lookback_days: 7
+  max_raw_papers: 2000
+  max_selected_papers: 20
+  categories:
+    - "cs.CV"
+    - "cs.RO" 
+    - "cs.LG"
+
+# User Profile (Strict Methodology Focus)
+interests: |
+  I am a researcher focused on **Foundational Computer Vision** and **Geometric Deep Learning**.
+  
+  CORE INTERESTS (Select these):
+  - **Current Research**: SE(3) Object Pose Estimation, Geometric Shape Priors (SemAlign3D etc.)
+  - **Foundational Vision:** Self-supervised learning (DINOv3, MAE, I-JEPA), robust image representations, and foundation models.
+  - **3D & 4D Representations:** NeRFs, 3D Gaussian Splatting, 4D space-time, dynamic scene reconstruction.
+  - **Geometric Priors:** Flexible shape priors, category-level pose estimation, deformables, and world models.
+  - **Dense Prediction:** Semantic segmentation, depth estimation, optical flow (e.g., LiftUp), and intrinsic image decomposition.
+
+  STRICT EXCLUSIONS (Do NOT select these):
+  - **Applied Papers:** Papers that merely apply existing methods (like YOLO, ResNet, or standard Transformers) to niche fields without proposing a new *computer vision method*.
+  - **Excluded Fields:** - Medical Imaging / Diagnostics (CT, MRI, X-Ray)
+    - Traffic Control / Autonomous Driving Systems (unless focused on low-level perception/prediction)
+    - Agriculture / Remote Sensing / Satellite Imagery
+    - Sports Analytics
+  - **High-Level Robotics:** End-to-End VLA / Manipulation policies (unless they introduce a novel visual representation).
+
+# Output Settings
+output:
+  root_dir: "./research_reports"
+  filename_prefix: "daily_pulse"
