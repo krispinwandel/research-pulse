@@ -84,6 +84,9 @@ output:
 
 ## Run
 
+To generate your daily (or weekly) research digest, simply run:
+
 ```bash
+# your report is saved to report_dir/YYYY/week_WW/filename_prefix_YYYY_MM_DD.md
 python run_feed.py
 ```
