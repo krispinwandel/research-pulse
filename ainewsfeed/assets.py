@@ -24,7 +24,7 @@ def generate_pdf_preview(pdf_path, paper_id, output_dir):
         pix.save(preview_path)
         doc.close()
         
-        return f"./{preview_filename}"
+        return preview_filename
     except Exception as e:
         print(f"⚠️ Failed to generate preview for {paper_id}: {e}")
         return None

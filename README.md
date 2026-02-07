@@ -90,5 +90,5 @@ To generate your daily (or weekly) research digest, simply run:
 # in project dir, activate the virtual environment (assumes you use uv)
 source .venv/bin/activate
 # your report is saved to report_dir/YYYY/week_WW/filename_prefix_YYYY_MM_DD.md
-python run_feed.py
+python generate_feed.py
 ```

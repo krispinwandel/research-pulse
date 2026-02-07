@@ -30,13 +30,17 @@ TEMPLATE = """
 <details>
 <summary><strong>📄 Show PDF Preview</strong></summary>
 <br>
-<a href="{{ paper.local_pdf }}" target="_blank">
+{% if paper.pdf_preview %}
+<a href="{{ paper.local_pdf }}">
     <img src="{{ paper.pdf_preview }}" 
          alt="Click to open PDF" 
          style="width: 100%; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;" 
          title="Click to read full PDF">
 </a>
 <p align="center"><em>(Click image to open full PDF)</em></p>
+{% else %}
+<p><em>No preview available. <a href="{{ paper.local_pdf }}">Open PDF</a></em></p>
+{% endif %}
 </details>
 
 <details>
