@@ -1,25 +1,27 @@
 # 🧬 ResearchPulse
 
-**ResearchPulse** is an automated, AI-powered research assistant designed to replace manual arXiv doom-scrolling. 
+**ResearchPulse** is an automated, AI-powered research discovery tool that keeps you on the cutting edge of your field by generating a daily digest of the most relevant and impactful papers from Arxiv, tailored to your specific research interests.
 
-It fetches the latest computer vision and robotics papers, filters them semantically using Google Gemini based on your specific research interests, and generates a rich, interactive Markdown report optimized for VS Code.
+It fetches the latest papers from Arxiv and filters them semantically using Google Gemini based on your customized research interests, and generates a rich, interactive Markdown report optimized for VS Code.
+
+<img src="./assets/research_pulse.gif" style="max-height: 500px; width: auto;">
 
 ## ✨ Features
 
-* **🧠 Semantic Filtering:** Uses **Gemini 2.0 Flash** to analyze paper abstracts and select only those that match your deep learning profile (e.g., "Foundational Vision" ✅ vs. "Applied Medical Imaging" ❌).
+* **🧠 Semantic Filtering:** Uses **Gemini 3 Flash Preview** to analyze paper abstracts and select only those that match your deep learning profile (e.g., "Foundational Vision" ✅ vs. "Applied Medical Imaging" ❌).
 * **📝 AI Summaries:** Generates a single-sentence "TL;DR" for each paper, focusing strictly on the method's novelty and contribution.
-* **🖼️ Visual Teasers:** Automatically downloads PDFs to extract **Figures** and render a **High-Res PDF Preview** directly in the report.
-* **🌐 Project Demos:** Detects project websites (GitHub Pages, HuggingFace Spaces) and embeds them as interactive iframes.
+* **🌐 Project Demos:** Detects project websites and embeds them as interactive iframes.
+* **🖼️ Auto PDF-Download:** Automatically downloads PDFs and renders a **PDF Preview** directly in the report.
 * **🐦 Community Signal:** Scans **X (Twitter)** to find if the paper is being discussed by key researchers.
 * **⚡ VS Code Optimized:** The output is a clean Markdown file with collapsible sections (`<details>`) for abstracts, PDFs, and demos, keeping your daily feed clutter-free.
 
 ## 🚀 Installation
 
 ### Prerequisites
-* Python 3.10+
+* Python 3.9+
 * [uv](https://github.com/astral-sh/uv) (Recommended) or pip
-* **Google Gemini API Key** (Free tier is sufficient)
-* *(Optional)* **X (Twitter) Bearer Token** for social signals
+* **Google Gemini API Key** for semantic filtering and summarization
+* **X (Twitter) Bearer Token** for social signals
 
 ### Setup
 
@@ -46,7 +48,7 @@ It fetches the latest computer vision and robotics papers, filters them semantic
 
 ## ⚙️ Configuration
 
-Edit `config.yaml` to tailor the feed to your PhD.
+Edit `config.yaml` to tailor the feed to your research interests. As an example, here’s a configuration for someone focused on **Foundational Computer Vision** and **Geometric Deep Learning**:
 
 ```yaml
 # Research Configuration
@@ -76,3 +78,4 @@ interests: |
 output:
   root_dir: "./research_reports"
   filename_prefix: "daily_pulse"
+```

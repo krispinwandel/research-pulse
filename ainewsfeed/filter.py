@@ -3,6 +3,8 @@ import re
 from google import genai
 from google.genai import types
 
+MODEL = 'gemini-3-flash-preview'  # Use the latest flash model for best performance
+
 def extract_project_url(text):
     """
     Finds the first valid external project URL (Web Demos, YouTube).
@@ -84,7 +86,7 @@ def filter_papers(papers, user_interests, api_key, limit=20):
     try:
         # Use gemini-2.0-flash or gemini-3-flash-preview
         response = client.models.generate_content(
-            model='gemini-2.0-flash', 
+            model=MODEL,
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json"
@@ -147,7 +149,7 @@ def enrich_with_summaries(papers, user_interests, api_key):
     
     try:
         response = client.models.generate_content(
-            model='gemini-2.0-flash',
+            model=MODEL,
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json"
