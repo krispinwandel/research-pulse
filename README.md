@@ -80,3 +80,10 @@ output:
   root_dir: "./research_reports"
   filename_prefix: "daily_pulse"
 ```
+
+
+## Run
+
+```bash
+python main.py
+```
