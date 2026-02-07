@@ -19,7 +19,7 @@ def extract_project_url(text):
     if not text: return None
     
     # Regex to capture http/https URLs
-    url_pattern = r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+[/\w\.-]*'
+    url_pattern = r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+[/\w\.-]*(?<!\.)'
     urls = re.findall(url_pattern, text)
     
     for url in urls:
