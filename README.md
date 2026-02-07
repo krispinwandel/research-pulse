@@ -15,6 +15,7 @@ It fetches the latest papers from Arxiv and filters them semantically using Goog
 * **🐦 Community Signal:** Scans **X (Twitter)** to find if the paper is being discussed by key researchers.
 * **⚡ VS Code Optimized:** The output is a clean Markdown file with collapsible sections (`<details>`) for abstracts, PDFs, and demos, keeping your daily feed clutter-free.
 
+
 ## 🚀 Installation
 
 ### Prerequisites
