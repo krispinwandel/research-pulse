@@ -22,7 +22,7 @@ It fetches the latest papers from Arxiv and filters them semantically using Goog
 * Python 3.9+
 * [uv](https://github.com/astral-sh/uv) (Recommended) or pip
 * **Google Gemini API Key** for semantic filtering and summarization
-* **X (Twitter) Bearer Token** for social signals
+* **X (Twitter) Bearer Token (Optional)** for social signals
 
 ### Setup
 
