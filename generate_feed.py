@@ -121,27 +121,22 @@ def main():
                 print("⚠️ No papers with project links found.")
                 sys.exit(0)
 
-        # B. Filter (Gemini)
-        print(f"   Filtering {len(raw_papers)} papers with Gemini...")
-        filter_result = ainewsfeed.filter_papers(
+        # B&C. Filter and Enrich (Gemini)
+        print(f"   Filtering {len(raw_papers)} papers and enrich with Gemini...")
+        filter_result = ainewsfeed.filter_and_enrich_papers_with_gemini(
             raw_papers, 
             cfg['interests'], 
             api_key=cfg['keys']['gemini'], 
             limit=cfg['research']['max_selected_papers']
         )
-        selected = filter_result["papers"]
+        enriched = filter_result["papers"]
 
-        if not selected:
+        if len(enriched) == 0:
             print("⚠️ Gemini found no relevant papers.")
             sys.exit(0)
-
-        # C. Enrich (Summaries)
-        print(f"   Enriching {len(selected)} papers...")
-        enriched = ainewsfeed.enrich_with_summaries(
-            selected, 
-            cfg['interests'], 
-            api_key=cfg['keys']['gemini']
-        )
+        print(f"   Gemini found {len(enriched)} relevant papers:")
+        for paper in enriched:
+            print(f"      - {paper['star_rating']} {paper['title']}: {paper['ai_summary']}")
         
         # D. Download Assets
         print(f"   Downloading assets to {assets_dir}...")

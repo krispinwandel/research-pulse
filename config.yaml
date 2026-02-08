@@ -9,7 +9,7 @@ research:
   lookback_days: 1
   # lookback_days: 7
   max_raw_papers: 2000
-  max_selected_papers: 5
+  max_selected_papers: 10
   categories:
     - "cs.CV"
     - "cs.RO" 

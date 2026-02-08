@@ -14,6 +14,7 @@ TEMPLATE = """
 **{{ paper.authors_full }}** | {{ paper.published }}
 
 > **🤖 AI TL;DR:** {{ paper.ai_summary }}
+> **⭐️ Relevance:** {{ paper.star_rating }}
 
 <details>
 <summary><strong>🌐 {% if paper.project_url %}Show Project Demo{% else %}No Project Demo Available{% endif %}</strong></summary>
