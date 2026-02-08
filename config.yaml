@@ -6,9 +6,10 @@ keys:
 # Research Configuration
 research:
   require_project_link: True
-  lookback_days: 7
+  lookback_days: 1
+  # lookback_days: 7
   max_raw_papers: 2000
-  max_selected_papers: 20
+  max_selected_papers: 5
   categories:
     - "cs.CV"
     - "cs.RO" 
@@ -36,4 +37,5 @@ interests: |
 # Output Settings
 output:
   root_dir: "./research_reports"
-  filename_prefix: "weekly_pulse"
+  filename_prefix: "daily_pulse"
+  # filename_prefix: "weekly_pulse"

@@ -1,17 +1,15 @@
 import arxiv
-import datetime
 
-def get_arxiv_papers(days=7, max_results=200, categories=['cs.CV', 'cs.RO']):
+def get_arxiv_papers(start_date, end_date, max_results=200, categories=['cs.CV', 'cs.RO']):
     """
     Fetches papers from arXiv for the last N days in specific categories.
     """
-    print(f"📡 Fetching arXiv papers from the last {days} days...")
-    
-    end_date = datetime.datetime.now(datetime.timezone.utc)
-    start_date = end_date - datetime.timedelta(days=days)
     
     # Construct query: cat:cs.CV OR cat:cs.RO ...
     query = " OR ".join([f"cat:{c}" for c in categories])
+    query = f"({query}) AND submittedDate:[{start_date.strftime('%Y%m%d%H%M')} TO {end_date.strftime('%Y%m%d%H%M')}]"
+
+    print(f"🔍 Querying arXiv with (max {max_results}):\n{query}")
     
     search = arxiv.Search(
         query=query,
@@ -24,7 +22,7 @@ def get_arxiv_papers(days=7, max_results=200, categories=['cs.CV', 'cs.RO']):
     
     for result in client.results(search):
         # Filter by date (API sort is approximate)
-        if result.published >= start_date:
+        if result.published >= start_date and result.published <= end_date:
             papers.append({
                 "id": result.entry_id.split('/')[-1],
                 "title": result.title.replace('\n', ' '),
@@ -34,7 +32,7 @@ def get_arxiv_papers(days=7, max_results=200, categories=['cs.CV', 'cs.RO']):
                 "url": result.entry_id,
                 "published": result.published.strftime("%Y-%m-%d")
             })
-            
+                
     print(f"✅ Fetched {len(papers)} raw papers from arXiv.")
     return papers
 

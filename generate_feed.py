@@ -3,6 +3,7 @@ import sys
 import yaml
 import json
 import datetime
+from datetime import timezone
 import argparse
 from pathlib import Path
 from dotenv import load_dotenv
@@ -30,11 +31,11 @@ def load_config(config_path):
         
     return config
 
-def setup_directories(root_dir, filename_prefix):
+def setup_directories(root_dir, filename_prefix, date=None):
     """
     Sets up the directory structure and returns paths.
     """
-    now = datetime.datetime.now()
+    now = datetime.datetime.now() if date is None else date
     year = now.strftime("%Y")
     week = now.strftime("%V")
     date_str = now.strftime("%Y_%m_%d")
@@ -59,14 +60,31 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="config.yaml")
     parser.add_argument("--force", action="store_true", help="Ignore cache and regenerate")
+    parser.add_argument("--date", type=str, help="Use specific date for report (YYYY-MM-DD)")
     args = parser.parse_args()
 
     cfg = load_config(args.config)
+
+    # Determine Date Range
+    if args.date:
+        try:
+            d = datetime.datetime.strptime(args.date, "%Y-%m-%d").date()
+            report_date = datetime.datetime.combine(d, datetime.time.max, tzinfo=timezone.utc)
+        except ValueError:
+            print("❌ Invalid date format. Use YYYY-MM-DD.")
+            sys.exit(1)
+    else:
+        # NOTE - Default to 3 days ago to allow for paper submissions and API indexing delays
+        d = datetime.datetime.now().date()- datetime.timedelta(days=3)
+        report_date = datetime.datetime.combine(d, datetime.time.max, tzinfo=timezone.utc)
+    start_date = report_date - datetime.timedelta(days=cfg['research']['lookback_days'])
+    print(f"📅 Generating report for papers submitted between {start_date.strftime('%Y-%m-%d %H:%M')} and {report_date.strftime('%Y-%m-%d %H:%M')} (UTC)")
     
     # --- 1. Setup Paths (Done early to check cache) ---
     report_path, assets_dir, data_file, rel_asset_path = setup_directories(
         cfg['output']['root_dir'], 
-        cfg['output']['filename_prefix']
+        cfg['output']['filename_prefix'],
+        date=report_date
     )
 
     enriched = []
@@ -85,7 +103,8 @@ def main():
         # A. Fetch
         print(f"   Fetching papers (last {cfg['research']['lookback_days']} days)...")
         raw_papers = ainewsfeed.get_arxiv_papers(
-            days=cfg['research']['lookback_days'],
+            start_date=start_date,
+            end_date=report_date,
             max_results=cfg['research']['max_raw_papers'],
             categories=cfg['research']['categories']
         )
@@ -96,6 +115,7 @@ def main():
 
         # Pre-Filter (Project Links)
         if cfg['research'].get('require_project_link', False):
+            print("   Pre-filtering papers for project links...")
             raw_papers = [p for p in raw_papers if ainewsfeed.has_project_link(p)]
             if not raw_papers:
                 print("⚠️ No papers with project links found.")
@@ -172,7 +192,7 @@ def main():
 
     # --- 5. Generate Report ---
     print("📝 Generating Markdown report...")
-    final_path = ainewsfeed.generate_report(enriched, report_path)
+    final_path = ainewsfeed.generate_report(enriched, report_path, date=report_date)
     print(f"🚀 Report saved to: {final_path}")
 
 if __name__ == "__main__":

@@ -60,14 +60,16 @@ TEMPLATE = """
 {% endfor %}
 """
 
-def generate_report(papers, output_path):
+def generate_report(papers, output_path, date=None):
     """
     Generates a Markdown report and saves it to the specified path.
     Creates parent directories if they don't exist.
     """
     # 1. Prepare Template
     template = Template(TEMPLATE)
-    date_str = datetime.datetime.now().strftime("%Y-%m-%d")
+    if date is None:
+        date = datetime.datetime.now()
+    date_str = date.strftime("%Y-%m-%d")
     
     markdown_content = template.render(
         papers=papers,
