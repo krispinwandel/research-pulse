@@ -22,6 +22,7 @@ def load_config(config_path):
     load_dotenv()
     
     # Priority: Env Var > YAML
+    config["keys"] = {}
     config['keys']['gemini'] = os.getenv("GEMINI_API_KEY") or config['keys'].get('gemini')
     config['keys']['x_bearer'] = os.getenv("X_BEARER_TOKEN") or config['keys'].get('x_bearer')
 

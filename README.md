@@ -57,7 +57,7 @@ research:
   lookback_days: 2           # How far back to search arXiv
   max_raw_papers: 100        # Initial fetch size
   max_selected_papers: 15    # Final curated list size
-  require_project_link: true # If true, discards papers without code/web links
+  require_project_link: true # If true, discards papers without project web links (links to code repositories are not sufficient)
   categories:
     - "cs.CV"
     - "cs.RO"
